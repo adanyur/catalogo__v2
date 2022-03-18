@@ -14,5 +14,7 @@ $.getJSON("json/categoria.json", (data) => {
         `;
   });
 
+  console.log(template);
+
   $("#categoria").html(template);
 });
