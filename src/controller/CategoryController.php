@@ -17,9 +17,7 @@ class CategoryController {
 
     public function update(){}
 
-    public function delete(){
-        
-    }
+    public function delete(){}
 
 
 }

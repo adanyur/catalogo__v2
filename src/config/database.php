@@ -9,7 +9,7 @@ $DB->addConnection([
     'host'=>'localhost',
     'database'=>'dbs2162417',
     'username'=>'root',
-    'password'=>'',
+    'password'=>'2009',
     'charset'=>'utf8',
     'collation'=>'utf8_unicode_ci',
 ]);

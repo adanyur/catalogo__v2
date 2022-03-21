@@ -11,8 +11,7 @@ class OrderController {
     }
 
     public function  store($request){
-
-        $order = Order::create([
+         $order = Order::create([
             'email' => $request['email'], 
             'client' => $request['client'],
             'phone' => $request['phone'],
@@ -21,9 +20,9 @@ class OrderController {
         ]);
 
         if($order->save()){
-            return 'SE GUARDO';
+            return array('status'=>true,'message'=>'Se genero la orden');
         }
-        return 'NO SE GUARDO';
+        return array('status'=>false,'message'=>'No se genero la orden');
     }
 
     public function  show(){
@@ -40,13 +39,17 @@ class OrderController {
         ]);
 
         if($orderUpdate){
-            return 'SE ACTUALIZO';
+            return json_encode(['status'=>true,'message'=>'Se actualizo la orden']);
         }
-        return 'NO SE ACTUALIZO';
+        return json_encode(['status'=>false,'message'=>'No se actualizo la orden']);
     }
 
     public function delete($request){
-        return Order::find($request['id'])->delete();
+        $orderDelete = Order::find($request['id'])->delete();
+        if($orderDelete){
+            return json_encode(['status'=>true,'message'=>'Se elimino la orden']);
+        }
+        return json_encode(['status'=>true,'message'=>'No se elimino la orden']);
     }
 
 }

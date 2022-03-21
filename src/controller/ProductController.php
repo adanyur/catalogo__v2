@@ -1,14 +1,21 @@
 <?php
-use App\models\Product;
-
+header('Content-type: application/json');
 require_once dirname(dirname(dirname(__FILE__))).'/vendor/autoload.php';
 require_once dirname(dirname(__FILE__)).'/config/database.php';
+use App\models\Product;
+
 
 class ProductController {
 
 
-    public function index(){
-        return Product::all();
+    public function index($id){
+        
+        if($id){
+             return Product::all();
+         }
+
+         return Product::whereCategory($id)->get();    
+         
 
     }
     
