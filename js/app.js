@@ -1,6 +1,6 @@
-$.getJSON("json/categoria.json", (data) => {
-  let template = "";
+const URL = `http://localhost/catalogos/src/public/`;
 
+const templateCategory = (data) => {
   data.map(({ imagen, nombre, descripcion }) => {
     console.log({ imagen, nombre, descripcion });
     template += `
@@ -10,11 +10,14 @@ $.getJSON("json/categoria.json", (data) => {
           <h2>${nombre}</h2>
           <p>${descripcion}</p>
         </div>
-      </div>
-        `;
+      </div>`;
   });
+};
 
-  console.log(template);
-
-  $("#categoria").html(template);
+$.ajax({
+  url: `${URL}`,
+  type: "DELETE",
+  success: (data) => {
+    templateCategory(data);
+  },
 });

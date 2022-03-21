@@ -1,0 +1,19 @@
+{
+  "name": "adany/catalogos",
+  "description": "Catalogo",
+  "require": {
+    "illuminate/database": "^7.30"
+  },
+  "license": "MI",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "yur",
+      "email": "adanyur@gmail.com"
+    }
+  ]
+}
