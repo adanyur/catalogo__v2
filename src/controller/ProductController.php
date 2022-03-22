@@ -10,19 +10,18 @@ class ProductController {
 
     public function index($id){
         
-        if($id){
+        if(!$id){
              return Product::all();
          }
-
          return Product::whereCategory($id)->get();    
-         
-
     }
     
     public function  store($request){
     }
 
-    public function  show(){}
+    public function  show($id){
+        return Product::whereId($id)->first();
+    }
 
     public function update(){}
 

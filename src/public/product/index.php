@@ -1,24 +1,33 @@
 <?php
 header('Content-type: application/json');
 require_once dirname(dirname(dirname(__FILE__))).'\controller\ProductController.php';
-$order = new ProductController();
+$product = new ProductController();
 $data  = json_decode(file_get_contents('php://input'), true);
 
-$id = isset($_GET['idCategory']) ? $_GET['idCategory']:null;
+$id = isset($_GET['id']) ? $_GET['id']:null;
+$parameters  = isset($_GET['parameters']) ? $_GET['parameters']:null;
+
+
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
-        die($order->index($id));
+        switch($parameters){
+            case "SHOW":    
+                die($product->show($id));
+                break;
+            default:
+                die($product->index($id));
+        }
         break;
     case "POST":
-        die($order->store($data));
+        die($product->store($data));
         break;
     case "PUT":
-        die($order->update($data));
+        die($product->update($data));
         break;
     case "DELETE":
-        die($order->delete($data));
+        die($product->delete($data));
         break;
     default:
-        die($order->index());
+        die($product->index());
 }

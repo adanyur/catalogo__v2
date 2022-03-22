@@ -1,13 +1,16 @@
-const URL = `http://localhost/@projects/catalogo__v2/src/public`;
+const URL = `http://localhost/catalogos/src/public`;
+
 const templateProduct = (data) => {
   let template = "";
   data.map(({ id, image, name }) => {
     template += `
           <div class="img__item item___ " >
           <img src="${image}" />
-          <div class="item__text" data-id=${id}>
+          <div class="item__text" >
             <h2>${name}</h2>
-            <p></p>
+            <p class="container__button">
+            <button class="btn" data-id=${id}>+agregar</button>
+            </p>
           </div>
         </div>`;
   });
@@ -17,7 +20,6 @@ const templateProduct = (data) => {
 
 const product = () => {
   const idCategory = +localStorage.getItem("__ID__");
-  console.log(idCategory);
   $.ajax({
     url: `${URL}/product/`,
     type: "GET",
@@ -29,3 +31,15 @@ const product = () => {
 };
 
 product();
+let carrito = [];
+const data = document.querySelector("#product");
+data.addEventListener("click", ({ target }) => {
+  const id = +target.getAttribute("data-id") || null;
+  $.ajax({
+    url: `${URL}/product/`,
+    type: "GET",
+    data: { id, parameters: "SHOW" },
+    success: (data) => carrito.push(data),
+  });
+  localStorage.setItem("__add__", JSON.stringify(carrito));
+});

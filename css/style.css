@@ -20,7 +20,7 @@ body {
   position: fixed;
   z-index: 100;
   background-color: #fff;
-  padding: 2rem 0;
+  padding: 1rem 0;
   box-shadow: 0 10px 15px rgba(92, 99, 105, 0.1);
   justify-content: center;
 }
@@ -33,9 +33,9 @@ body {
 }
 
 .nav__logo {
-  width: 100%;
+  width: 30%;
   /* margin-left: 5rem; */
-  text-align: center;
+  /* text-align: center; */
 }
 
 .nav__menu__desktop {
@@ -179,9 +179,35 @@ h1 {
   margin-bottom: 3rem;
 }
 
+.container__button {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.w__30 {
+  width: 20%;
+}
+
+.btn {
+  border: none;
+  padding: 1rem;
+  width: 70%;
+  border-radius: 2rem;
+  border: 1px solid red;
+  color: red;
+}
+
+.btn:hover {
+  background-color: red;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 @media (min-width: 768px) and (min-width: 992px) {
   .nav__menu__desktop {
-    width: 50%;
+    width: 30%;
     display: flex;
     justify-content: space-between;
     align-items: center;
