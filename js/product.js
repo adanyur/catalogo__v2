@@ -1,4 +1,5 @@
-const URL = `http://localhost/catalogos/src/public`;
+// const URL = `http://localhost/catalogos/src/public`;
+const URL = `http://localhost/@projects/catalogo__v2/src/public`;
 
 const templateProduct = (data) => {
   let template = "";
@@ -18,28 +19,33 @@ const templateProduct = (data) => {
   $("#product").html(template);
 };
 
-const product = () => {
-  const idCategory = +localStorage.getItem("__ID__");
+(function () {
+  const id = +localStorage.getItem("__ID__");
   $.ajax({
-    url: `${URL}/product/`,
+    url: `${URL}/category/`,
     type: "GET",
-    data: { idCategory },
+    data: { id, parameters: null },
     success: (data) => {
-      templateProduct(data);
+      document.getElementById("titleCategory").innerText = data.name;
+      templateProduct(data.product);
     },
   });
+})();
+
+const agregarCarrito = (data) => {
+  let carrito = JSON.parse(localStorage.getItem("__add__")) || [];
+  carrito.push(data);
+  localStorage.setItem("__add__", JSON.stringify(carrito));
 };
 
-product();
-let carrito = [];
 const data = document.querySelector("#product");
+
 data.addEventListener("click", ({ target }) => {
   const id = +target.getAttribute("data-id") || null;
   $.ajax({
     url: `${URL}/product/`,
     type: "GET",
     data: { id, parameters: "SHOW" },
-    success: (data) => carrito.push(data),
+    success: (data) => agregarCarrito(data),
   });
-  localStorage.setItem("__add__", JSON.stringify(carrito));
 });

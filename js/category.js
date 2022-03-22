@@ -1,4 +1,5 @@
-const URL = `http://localhost/catalogos/src/public`;
+//const URL = `http://localhost/catalogos/src/public`;
+const URL = `http://localhost/@projects/catalogo__v2/src/public`;
 
 const templateCategory = (data) => {
   let template = "";
@@ -26,6 +27,6 @@ $.ajax({
 
 const data = document.querySelector("#category");
 data.addEventListener("click", ({ target }) => {
-  const idCategory = +target.getAttribute("data-id") || null;
-  localStorage.setItem("__ID__", idCategory);
+  const id = +target.getAttribute("data-id") || null;
+  localStorage.setItem("__ID__", id);
 });

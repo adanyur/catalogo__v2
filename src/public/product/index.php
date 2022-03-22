@@ -7,8 +7,6 @@ $data  = json_decode(file_get_contents('php://input'), true);
 $id = isset($_GET['id']) ? $_GET['id']:null;
 $parameters  = isset($_GET['parameters']) ? $_GET['parameters']:null;
 
-
-
 switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
         switch($parameters){

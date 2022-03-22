@@ -9,11 +9,7 @@ class ProductController {
 
 
     public function index($id){
-        
-        if(!$id){
-             return Product::all();
-         }
-         return Product::whereCategory($id)->get();    
+        return $id ? Product::whereCategory($id)->get(): Product::all();
     }
     
     public function  store($request){
