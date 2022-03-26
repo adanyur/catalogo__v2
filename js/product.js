@@ -32,13 +32,24 @@ const templateProduct = (data) => {
   });
 })();
 
+const getAddCart = () => JSON.parse(localStorage.getItem("__add__")) || [];
+
+const countCart = () => {
+  const count = getAddCart();
+  document.getElementById("countAddCart").innerText = count.length;
+};
+
+countCart();
+
+/*ADD*/
+
+const data = document.querySelector("#product");
+
 const agregarCarrito = (data) => {
-  let carrito = JSON.parse(localStorage.getItem("__add__")) || [];
+  let carrito = getAddCart();
   carrito.push(data);
   localStorage.setItem("__add__", JSON.stringify(carrito));
 };
-
-const data = document.querySelector("#product");
 
 data.addEventListener("click", ({ target }) => {
   const id = +target.getAttribute("data-id") || null;
@@ -46,6 +57,35 @@ data.addEventListener("click", ({ target }) => {
     url: `${URL}/product/`,
     type: "GET",
     data: { id, parameters: "SHOW" },
-    success: (data) => agregarCarrito(data),
+    success: (data) => {
+      agregarCarrito(data);
+      countCart();
+    },
   });
 });
+
+/*LISTADO DEL CARRITO*/
+
+const listProduct = () => {
+  const data = getAddCart();
+  let template = "";
+  data.map(({ name, image, price }) => {
+    template += `
+
+                <div class="card" >
+                    <div class="card__img">
+                      <img src="${image}" class="img__card">
+                    </div>
+                    <div class="card__body">
+                      <span>${name}</span>
+                      <p>${price}</p>
+                    </div>
+                </div>
+                  
+          
+                `;
+  });
+  document.getElementById("data").innerHTML = template;
+};
+
+listProduct();
