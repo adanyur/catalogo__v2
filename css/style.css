@@ -327,6 +327,14 @@ h1 {
   width: 50%;
 }
 
+.btn__primary {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  margin-top: 1.5rem;
+  font-weight: 600;
+}
+
 @media (min-width: 768px) and (min-width: 992px) {
   .display__block {
     display: block;
