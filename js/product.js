@@ -1,5 +1,5 @@
-// const URL = `http://localhost/catalogos/src/public`;
-const URL = `http://localhost/@projects/catalogo__v2/src/public`;
+const URL = `http://localhost/catalogo/src/public`;
+//const URL = `http://localhost/@projects/catalogo__v2/src/public`;
 
 const templateProduct = (data) => {
   let template = "";
@@ -79,9 +79,10 @@ const listProduct = () => {
                     </div>
                 </div>`;
   });
+
+  template += `<button type="button" class="btn__primary" id="proccess">Proccess</button>`;
   document.getElementById("data").innerHTML = template;
 };
-
 listProduct();
 
 const FORM_DYNAMIC = [
@@ -89,7 +90,7 @@ const FORM_DYNAMIC = [
     label: "Name",
     control: "input",
     type: "text",
-    placeholder: "",
+    placeholder: "Ingresar name",
     rules: {
       required: true,
     },
@@ -99,7 +100,7 @@ const FORM_DYNAMIC = [
     label: "Phone",
     control: "input",
     type: "phone",
-    placeholder: "",
+    placeholder: "Ingresar phone",
     rules: {
       required: true,
     },
@@ -108,7 +109,7 @@ const FORM_DYNAMIC = [
     label: "Email",
     control: "input",
     type: "",
-    placeholder: "",
+    placeholder: "Ingresar email",
     rules: {
       required: true,
     },
@@ -124,58 +125,63 @@ const FORM_DYNAMIC = [
   },
 ];
 
-const ID__FORM = document.getElementById("order");
-
 const input = ({ type, label, placeholder }) => {
-  let input = document.createElement("input");
-  input.type = type;
-  input.name = label;
-  input.name = placeholder;
-
-  let a = document.createElement("label");
-  a.innerHTML = label;
-
-  return input;
+  return `<div class="form__group">
+            <input type="${type}" name="${label}" placeholder="${
+    placeholder || " "
+  }" class="form__input">
+            <label class="form__label">${label}</label>
+          </div>
+          `;
 };
 
-const textarea = ({ label }) => {
-  let textarea = document.createElement("textarea");
-  textarea.name = label;
-  return textarea;
+const textarea = ({ label, placeholder }) => {
+  return `<div class="form__group textarea">
+        <textarea class="form__input " name="${label}" placeholder="${
+    placeholder || " "
+  }"></textarea>
+        <label class="form__label">${label}</label></div>
+        `;
 };
 
 const templateForm = () => {
-  const node = [];
-  document.getElementById("data").remove();
+  let template = `<h1 class="display__4">Complete Information</h1>`;
   FORM_DYNAMIC.map((data) => {
     const FORM = {
       input: input(data),
       textarea: textarea(data),
     };
-
-    console.log(FORM[data.control].outerHTML);
-
-    node.push(FORM[data.control]);
+    template += FORM[data.control];
   });
-
-  document.getElementById("order").append(...node);
+  template += `<div class="form__group"><button class="btn__primary" id="generarOrden">Generar orden</button></div>`;
+  document.getElementById("order").innerHTML = template;
 };
 
-templateForm();
-
 /**Generar orden**/
-document.getElementById("generarOrden").addEventListener("click", (e) => {
-  let data = getAddCart();
-  console.log(data[0]);
-  document.getElementById("data").remove();
+document.getElementById("proccess").addEventListener("click", (e) => {
+  document.getElementById("data").style.display = "none";
+  templateForm();
 });
 
-// $.ajax({
-//   url: `${URL}/order/`,
-//   type: "POST",
-//   contentType: "application/json",
-//   data: JSON.stringify(data[0]),
-//   success: (data) => {
-//     console.log(data);
-//   },
-// });
+const serializar = (form) => {
+  const serializar = {};
+  for (let { name, value } of form) if (name) serializar[name] = value;
+  serializar["detalle"] = getAddCart();
+  return serializar;
+};
+
+document.getElementById("order").addEventListener("submit", (e) => {
+  let data = serializar(document.getElementById("order").elements);
+
+  $.ajax({
+    url: `${URL}/order/`,
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: (data) => {
+      console.log(data);
+    },
+  });
+
+  e.preventDefault();
+});
