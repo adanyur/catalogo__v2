@@ -1,5 +1,5 @@
-//const URL = `http://localhost/catalogos/src/public`;
-const URL = `http://localhost/@projects/catalogo__v2/src/public`;
+const URL = `http://localhost/catalogo__v2/src/public`;
+// const URL = `http://localhost/@projects/catalogo__v2/src/public`;
 
 const templateCategory = (data) => {
   let template = "";

@@ -1,5 +1,5 @@
-const URL = `http://localhost/catalogo/src/public`;
-//const URL = `http://localhost/@projects/catalogo__v2/src/public`;
+// const URL = `http://localhost/catalogo/src/public`;
+const URL = `http://localhost/catalogo__v2/src/public`;
 
 const templateProduct = (data) => {
   let template = "";
@@ -67,20 +67,22 @@ data.addEventListener("click", ({ target }) => {
 /*LISTADO DEL CARRITO*/
 const listProduct = () => {
   const data = getAddCart();
-  let template = "";
+  console.log(data);
+  let template = '<h2 class="display__4">List</h2><section class="scroll__y">';
   data.map(({ name, image, price }) => {
     template += `<div class="card" >
+                    <div class="card__body">
+                      <span class="font__size__titulo">${name}</span>
+                      <span class="font__size__price">$ ${price}</span>
+                    </div>
                     <div class="card__img">
                       <img src="${image}" class="img__card">
                     </div>
-                    <div class="card__body">
-                      <span>${name}</span>
-                      <p>${price}</p>
-                    </div>
+                    <span class="card__close">X</span>
                 </div>`;
   });
 
-  template += `<button type="button" class="btn__primary" id="proccess">Proccess</button>`;
+  template += `</section><button type="button" class="btn__primary" id="proccess">Proccess</button>`;
   document.getElementById("data").innerHTML = template;
 };
 listProduct();
